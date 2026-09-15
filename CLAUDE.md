@@ -44,6 +44,7 @@ build-dev.bat     # Test-build → git push til dev-branch (/video/video-dev/)
 | `js/ui.js` | DOM-elementer, skærm-skift, sammenkobler de rene moduler til det faktiske flow |
 | `js/qr.js` | Logo øverst til højre åbner en QR-kode med appens egen adresse (qrcodejs via CDN) |
 | `js/pwa-install.js` | Installer-banner (Android via `beforeinstallprompt`, manuel vejledning på iOS) |
+| `js/sw-register.js` | Registrerer `public/sw.js` — en tom service worker der KUN findes for at opfylde browserens installations-krav (uden den udløses `beforeinstallprompt` ikke) |
 
 ## Flow
 

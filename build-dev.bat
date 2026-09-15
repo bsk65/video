@@ -56,6 +56,11 @@ if errorlevel 1 (
   exit /b 1
 )
 
+REM sw.js ligger i public/ og bliver kopieret uaendret af Vite til
+REM dist-dev-roden (ikke en del af assets/) - skal derfor kopieres eksplicit.
+REM Kraeves af browseren for at vise installations-prompten.
+if exist "%PROJ%\video-dev\sw.js" copy "%PROJ%\video-dev\sw.js" "%TMPWT%\video-dev\sw.js" /Y >nul
+
 powershell -NoProfile -ExecutionPolicy Bypass -File "%PROJ%\verify-build.ps1" -Html "%TMPWT%\video-dev\index.html" -AssetsDir "%TMPWT%\video-dev\assets"
 if errorlevel 1 (
   echo FEJL: video-dev/index.html og assets/ er ikke i sync - build-dev.bat afbrudt.
