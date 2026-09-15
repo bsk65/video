@@ -40,7 +40,6 @@ if not exist "%TMPWT%\video-dev" mkdir "%TMPWT%\video-dev"
 REM Ryd gamle assets i worktree FOERST - se 3D-appens build-dev.bat for baggrunden
 del "%TMPWT%\video-dev\assets\index-*.js" >nul 2>&1
 del "%TMPWT%\video-dev\assets\index-*.css" >nul 2>&1
-del "%TMPWT%\video-dev\assets\manifest-*.json" >nul 2>&1
 
 xcopy "%PROJ%\video-dev\assets\*" "%TMPWT%\video-dev\assets\" /E /Y /Q
 if exist "%PROJ%\video-dev\icons" xcopy "%PROJ%\video-dev\icons\*" "%TMPWT%\video-dev\icons\" /E /Y /Q
@@ -56,10 +55,12 @@ if errorlevel 1 (
   exit /b 1
 )
 
-REM sw.js ligger i public/ og bliver kopieret uaendret af Vite til
-REM dist-dev-roden (ikke en del af assets/) - skal derfor kopieres eksplicit.
-REM Kraeves af browseren for at vise installations-prompten.
+REM sw.js og manifest.json ligger i public/ og bliver kopieret uaendret af
+REM Vite til dist-dev-roden (ikke en del af assets/, og bevidst UHASHET
+REM saa manifestets relative stier peger rigtigt her i video-dev/ og ikke
+REM paa produktionens rod) - skal derfor kopieres eksplicit.
 if exist "%PROJ%\video-dev\sw.js" copy "%PROJ%\video-dev\sw.js" "%TMPWT%\video-dev\sw.js" /Y >nul
+if exist "%PROJ%\video-dev\manifest.json" copy "%PROJ%\video-dev\manifest.json" "%TMPWT%\video-dev\manifest.json" /Y >nul
 
 powershell -NoProfile -ExecutionPolicy Bypass -File "%PROJ%\verify-build.ps1" -Html "%TMPWT%\video-dev\index.html" -AssetsDir "%TMPWT%\video-dev\assets"
 if errorlevel 1 (

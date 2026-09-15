@@ -39,7 +39,6 @@ if errorlevel 1 (
 REM Ryd gamle assets i worktree
 del "%TMPWT%\assets\index-*.js" >nul 2>&1
 del "%TMPWT%\assets\index-*.css" >nul 2>&1
-del "%TMPWT%\assets\manifest-*.json" >nul 2>&1
 
 REM Kopier byggede filer til worktree
 xcopy "%PROJ%\dist\assets\*" "%TMPWT%\assets\" /E /Y /Q
@@ -58,10 +57,13 @@ if errorlevel 1 (
   exit /b 1
 )
 
-REM sw.js ligger i public/ og bliver kopieret uaendret af Vite til dist-roden
-REM (ikke en del af assets/) - skal derfor kopieres eksplicit, ligesom
-REM index.html. Kraeves af browseren for at vise installations-prompten.
+REM sw.js og manifest.json ligger i public/ og bliver kopieret uaendret af
+REM Vite til dist-roden (ikke en del af assets/, og bevidst UHASHET saa
+REM manifestets relative ikon-/start_url-stier peger rigtigt uanset om
+REM appen koeres fra produktion eller video-dev) - skal derfor kopieres
+REM eksplicit, ligesom index.html.
 if exist "%PROJ%\dist\sw.js" copy "%PROJ%\dist\sw.js" "%TMPWT%\sw.js" /Y >nul
+if exist "%PROJ%\dist\manifest.json" copy "%PROJ%\dist\manifest.json" "%TMPWT%\manifest.json" /Y >nul
 
 REM Sikkerhedstjek: bekraeft at index.html rent faktisk peger paa en
 REM JS-fil der findes i assets/, foer vi committer noget som helst.
@@ -80,7 +82,7 @@ REM lase indholdet friskt fra disk fremfor at stole paa cachet mtime/size
 REM ("racy git") - se 3D-appens build.bat for baggrunden.
 git rm --cached --quiet index.html >nul 2>&1
 
-git add *.html assets/ css/style.css icons/ sw.js
+git add *.html assets/ css/style.css icons/ sw.js manifest.json
 git diff --cached --quiet
 if errorlevel 1 (
   git commit -m "Prod-build opdatering"
