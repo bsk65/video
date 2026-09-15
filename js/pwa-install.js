@@ -2,7 +2,7 @@
 // Android/Chrome udløser `beforeinstallprompt`; iOS Safari sender den aldrig,
 // så der vises i stedet en manuel vejledning (samme mønster som 3D-appen).
 
-const DISMISS_KEY = 'skydevideo_pwa_dismissed'
+const DISMISS_KEY = 'skydevideo_pwa_dismissed_v2'
 
 export function initPwaInstall() {
   const dismissed = localStorage.getItem(DISMISS_KEY) === '1'
