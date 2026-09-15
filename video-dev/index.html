@@ -10,8 +10,8 @@
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" href="/video/video-dev/icons/icon-192.png" type="image/png" />
   <link rel="apple-touch-icon" href="/video/video-dev/icons/icon-192.png" />
-  <script type="module" crossorigin src="/video/video-dev/assets/index-_zYscfWo.js"></script>
-  <link rel="stylesheet" crossorigin href="/video/video-dev/assets/index-CEkAYTO8.css">
+  <script type="module" crossorigin src="/video/video-dev/assets/index-0lnBvpHN.js"></script>
+  <link rel="stylesheet" crossorigin href="/video/video-dev/assets/index-BfbqAL85.css">
 </head>
 <body>
 
@@ -72,6 +72,15 @@
           Pause før afspilning (sekunder)
           <input type="number" id="playback-delay-input" min="0" max="30" step="1" />
         </label>
+        <label class="modal-field">
+          Hastighed
+          <select id="speed-select">
+            <option value="normal">Normal</option>
+            <option value="slow">Slow motion</option>
+            <option value="superslow">Super slow motion</option>
+          </select>
+        </label>
+        <p class="modal-hint">Slow motion kræver at telefonens frontkamera understøtter høj billedrate — ellers bruges normal hastighed. Effekten ses i afspilningen i appen, ikke i den downloadede fil.</p>
         <div class="modal-actions">
           <button id="settings-close-btn" class="btn btn-gold">Gem</button>
         </div>
