@@ -4,7 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Skydevideo is a Danish-language PWA for archers to record themselves with the phone's front camera and immediately review the footage. No backend, no accounts — everything happens client-side in the browser. Hosted at base path `/video/`.
+Bue videotræning (repo/package name: skydevideo) is a Danish-language PWA for archers to record themselves with the phone's front camera and immediately review the footage. No backend, no accounts — everything happens client-side in the browser. Hosted at base path `/video/`.
+
+Sister app: 3D Bueskydning (separate repo/hosting at `/3D/`). The two apps cross-link via QR codes in the logo/QR modal (`js/qr.js`) — each app shows its own QR on top and the other app's QR below, both labelled. If either app's hosting URL ever changes, update the hardcoded URL on both sides (`OTHER_APP_URL` here, and the equivalent constant in 3D's `js/app-init.js`).
 
 ## Commands
 
@@ -40,6 +42,8 @@ build-dev.bat     # Test-build → git push til dev-branch (/video/video-dev/)
 | `js/countdown.js` | Genbrugelig nedtællings-hjælper (bruges både før optagelse og før afspilning) |
 | `js/settings.js` | Indstillinger (optagelængde/afspilningsforsinkelse) — load/save mod `localStorage` |
 | `js/ui.js` | DOM-elementer, skærm-skift, sammenkobler de rene moduler til det faktiske flow |
+| `js/qr.js` | Logo øverst til højre åbner en QR-kode med appens egen adresse (qrcodejs via CDN) |
+| `js/pwa-install.js` | Installer-banner (Android via `beforeinstallprompt`, manuel vejledning på iOS) |
 
 ## Flow
 
