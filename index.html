@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#1a2e1a" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <title>Skydevideo</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="/video/icons/icon-192.png" type="image/png" />
+  <link rel="apple-touch-icon" href="/video/icons/icon-192.png" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <div id="app">
+
+    <!-- KAMERA-VISNING -->
+    <div id="camera-screen" class="screen active">
+      <video id="preview" autoplay playsinline muted></video>
+
+      <div id="permission-msg" class="overlay-msg hidden">
+        <p>Kameraet kunne ikke åbnes. Tjek at du har givet appen adgang til kamera og mikrofon i browserens indstillinger.</p>
+        <button id="retry-camera-btn" class="btn btn-gold">Prøv igen</button>
+      </div>
+
+      <div id="countdown-overlay" class="overlay-big hidden">
+        <span id="countdown-num">3</span>
+      </div>
+
+      <div id="rec-badge" class="rec-badge hidden">
+        <span class="rec-dot"></span>
+        <span id="rec-time">10</span> s
+      </div>
+
+      <button id="settings-btn" class="icon-btn top-right" title="Indstillinger">⚙️</button>
+
+      <button id="record-btn" class="record-btn">
+        <span class="record-btn-inner"></span>
+      </button>
+    </div>
+
+    <!-- AFSPILNINGS-VISNING -->
+    <div id="playback-screen" class="screen">
+      <video id="playback" playsinline controls></video>
+
+      <div id="playback-wait-overlay" class="overlay-big hidden">
+        <p class="wait-label">Afspiller om</p>
+        <span id="playback-wait-num">2</span>
+      </div>
+
+      <div class="playback-actions">
+        <button id="record-again-btn" class="btn btn-outline">↺ Optag igen</button>
+        <button id="download-btn" class="btn btn-gold">⬇ Download</button>
+      </div>
+    </div>
+
+    <!-- INDSTILLINGER -->
+    <div id="settings-overlay" class="modal-overlay hidden">
+      <div class="modal-box">
+        <h2>Indstillinger</h2>
+        <label class="modal-field">
+          Optagelængde (sekunder)
+          <input type="number" id="record-seconds-input" min="1" max="60" step="1" />
+        </label>
+        <label class="modal-field">
+          Pause før afspilning (sekunder)
+          <input type="number" id="playback-delay-input" min="0" max="30" step="1" />
+        </label>
+        <div class="modal-actions">
+          <button id="settings-close-btn" class="btn btn-gold">Gem</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script type="module" src="/js/main.js"></script>
+</body>
+</html>
