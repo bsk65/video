@@ -6,12 +6,12 @@
   <meta name="theme-color" content="#1a2e1a" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <title>Skydevideo</title>
-  <link rel="manifest" href="/video/video-dev/assets/manifest-Cssl60ZS.json" />
-  <link rel="icon" href="/video/icons/icon-192.png" type="image/png" />
-  <link rel="apple-touch-icon" href="/video/icons/icon-192.png" />
-  <script type="module" crossorigin src="/video/video-dev/assets/index-BnAi8i1C.js"></script>
-  <link rel="stylesheet" crossorigin href="/video/video-dev/assets/index-CZaBNRtk.css">
+  <title>Bue videotræning</title>
+  <link rel="manifest" href="/video/video-dev/assets/manifest-DBcJZZyF.json" />
+  <link rel="icon" href="/video/video-dev/icons/icon-192.png" type="image/png" />
+  <link rel="apple-touch-icon" href="/video/video-dev/icons/icon-192.png" />
+  <script type="module" crossorigin src="/video/video-dev/assets/index-DPyUiK-t.js"></script>
+  <link rel="stylesheet" crossorigin href="/video/video-dev/assets/index-D3oqhPg4.css">
 </head>
 <body>
 
@@ -35,7 +35,10 @@
         <span id="rec-time">10</span> s
       </div>
 
-      <button id="settings-btn" class="icon-btn top-right" title="Indstillinger">⚙️</button>
+      <div class="top-right-icons">
+        <img id="app-logo-btn" src="/video/video-dev/icons/icon-192.png" class="hdr-logo-img" alt="Logo" title="Vis QR-kode" />
+        <button id="settings-btn" class="icon-btn" title="Indstillinger">⚙️</button>
+      </div>
 
       <button id="record-btn" class="record-btn">
         <span class="record-btn-inner"></span>
@@ -75,7 +78,56 @@
       </div>
     </div>
 
+    <!-- QR-KODE -->
+    <div id="qr-modal" class="modal-overlay hidden">
+      <div class="modal-box qr-modal-box">
+        <h3 class="qr-app-heading">Bue videotræning</h3>
+        <div id="qr-canvas" class="qr-canvas-wrap"></div>
+        <div class="qr-url-row">
+          <input type="text" id="qr-url" class="qr-url-input" readonly />
+          <button id="qr-copy-btn" class="icon-btn qr-copy-btn" title="Kopiér link">📋</button>
+        </div>
+
+        <div class="qr-divider"></div>
+
+        <h3 class="qr-app-heading">3D Bueskydning</h3>
+        <div id="qr-canvas-other" class="qr-canvas-wrap"></div>
+        <div class="qr-url-row">
+          <input type="text" id="qr-url-other" class="qr-url-input" readonly />
+          <button id="qr-copy-other-btn" class="icon-btn qr-copy-btn" title="Kopiér link">📋</button>
+        </div>
+
+        <div class="modal-actions">
+          <button id="qr-close-btn" class="btn btn-gold">Luk</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- INSTALLER-BANNER (Android/Chrome) -->
+    <div id="pwa-banner" class="pwa-banner-overlay hidden">
+      <div class="pwa-banner-card">
+        <img src="/video/video-dev/icons/icon-192.png" class="pwa-banner-logo" alt="" />
+        <div class="pwa-banner-text">Installer Bue videotræning på din hjemmeskærm for hurtig adgang</div>
+        <div class="pwa-banner-actions">
+          <button id="pwa-install-btn" class="btn btn-gold">INSTALLER APP</button>
+          <button id="pwa-dismiss-btn" class="btn btn-outline">Nej tak</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- INSTALLER-VEJLEDNING (iOS Safari) -->
+    <div id="ios-install-banner" class="pwa-banner-overlay hidden">
+      <div class="pwa-banner-card">
+        <img src="/video/video-dev/icons/icon-192.png" class="pwa-banner-logo" alt="" />
+        <div class="pwa-banner-text">Installer Bue videotræning på din hjemmeskærm:<br>Tryk på <span class="ios-share-icon">⬆️</span> Del-ikonet nederst i Safari, og vælg "Føj til hjemmeskærm".</div>
+        <div class="pwa-banner-actions">
+          <button id="ios-dismiss-btn" class="btn btn-outline">Ok</button>
+        </div>
+      </div>
+    </div>
+
   </div>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </body>
 </html>

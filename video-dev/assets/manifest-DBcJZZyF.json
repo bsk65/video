@@ -1,6 +1,6 @@
 {
-  "name": "Skydevideo",
-  "short_name": "Skydevideo",
+  "name": "Bue videotræning",
+  "short_name": "Bue video",
   "description": "Optag dig selv skyde og se det igen med det samme",
   "start_url": "/video/",
   "scope": "/video/",
