@@ -64,8 +64,9 @@ html,body{margin:0;padding:0;height:100%;background:var(--bg);color:var(--text);
 .modal-box h2{margin:0 0 18px;font-size:18px;}
 .modal-field{display:flex;flex-direction:column;gap:6px;margin-bottom:16px;font-size:14px;
   color:var(--muted);}
-.modal-field input{background:var(--surf2);border:1px solid var(--bord);border-radius:8px;
+.modal-field input,.modal-field select{background:var(--surf2);border:1px solid var(--bord);border-radius:8px;
   color:var(--text);padding:10px 12px;font-size:16px;}
+.modal-hint{margin:-8px 0 16px;font-size:12px;line-height:1.4;color:var(--muted);}
 .modal-actions{display:flex;justify-content:flex-end;margin-top:8px;}
 
 .qr-modal-box{text-align:center;}

@@ -3,8 +3,8 @@
 // kamera → nedtælling → optagelse → pause → afspilning.
 
 import { state } from './state.js'
-import { loadSettings, saveSettings, DEFAULT_RECORD_SECONDS, DEFAULT_PLAYBACK_DELAY } from './settings.js'
-import { startCamera } from './camera.js'
+import { loadSettings, saveSettings, DEFAULT_RECORD_SECONDS, DEFAULT_PLAYBACK_DELAY, SPEED_PRESETS } from './settings.js'
+import { startCamera, applySpeedToCamera } from './camera.js'
 import { runCountdown } from './countdown.js'
 import { recordClip, extFor } from './recorder.js'
 
@@ -27,6 +27,7 @@ const els = {
   settingsCloseBtn: document.getElementById('settings-close-btn'),
   recordSecondsInput: document.getElementById('record-seconds-input'),
   playbackDelayInput: document.getElementById('playback-delay-input'),
+  speedSelect: document.getElementById('speed-select'),
   playbackWaitOverlay: document.getElementById('playback-wait-overlay'),
   playbackWaitNum: document.getElementById('playback-wait-num'),
   recordAgainBtn: document.getElementById('record-again-btn'),
@@ -62,11 +63,13 @@ async function onRecordingStopped(blobUrl) {
   els.recordBtn.disabled = false
   showScreen('playback')
   els.playback.src = blobUrl
+  els.playback.playbackRate = SPEED_PRESETS[state.settings.speed]?.playbackRate || 1
 
   if (state.settings.playbackDelay > 0) {
     await runCountdown(els.playbackWaitOverlay, els.playbackWaitNum, state.settings.playbackDelay)
   }
   els.playback.currentTime = 0
+  els.playback.playbackRate = SPEED_PRESETS[state.settings.speed]?.playbackRate || 1
   els.playback.play().catch(() => {})
 }
 
@@ -92,13 +95,17 @@ function wireEvents() {
   els.settingsBtn.addEventListener('click', () => {
     els.recordSecondsInput.value = state.settings.recordSeconds
     els.playbackDelayInput.value = state.settings.playbackDelay
+    els.speedSelect.value = state.settings.speed
     els.settingsOverlay.classList.remove('hidden')
   })
   els.settingsCloseBtn.addEventListener('click', () => {
     const recordSeconds = Math.min(60, Math.max(1, Number(els.recordSecondsInput.value) || DEFAULT_RECORD_SECONDS))
     const playbackDelay = Math.min(30, Math.max(0, Number(els.playbackDelayInput.value) || DEFAULT_PLAYBACK_DELAY))
-    saveSettings({ recordSeconds, playbackDelay })
+    const speed = SPEED_PRESETS[els.speedSelect.value] ? els.speedSelect.value : 'normal'
+    const speedChanged = speed !== state.settings.speed
+    saveSettings({ recordSeconds, playbackDelay, speed })
     els.settingsOverlay.classList.add('hidden')
+    if (speedChanged) applySpeedToCamera()
   })
 }
 

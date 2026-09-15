@@ -7,5 +7,5 @@ export const state = {
   chunks: [],
   lastBlobUrl: null,
   recordedMimeType: 'video/webm',
-  settings: { recordSeconds: 10, playbackDelay: 2 }
+  settings: { recordSeconds: 10, playbackDelay: 2, speed: 'normal' }
 }
